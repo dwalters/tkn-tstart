@@ -1,0 +1,25 @@
+apiVersion: tekton.dev/v1
+kind: TaskRun
+metadata:
+  generateName: hello-
+spec:
+  taskSpec:
+    params:
+      - name: greeting
+        description: Message to print
+        default: "${GREETING:-Hello, World!}"
+      - name: target
+        description: Target environment
+        enum:
+          - dev
+          - staging
+          - prod
+      - name: image
+        description: Container image to use
+  params:
+    - name: greeting
+      value: "${GREETING:-Hello, World!}"
+    - name: target
+      value: "${TARGET_ENV:-dev}"
+    - name: image
+      value: "${IMAGE}"
